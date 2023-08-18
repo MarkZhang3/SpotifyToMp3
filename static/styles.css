@@ -1,0 +1,103 @@
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.top-container {
+    background-color: #000;
+    padding: 40px 0;
+    text-align: center;
+    height: 575px;
+    transition: opacity 0.5s ease;
+}
+
+.down-arrow-button {
+    cursor: pointer; 
+    position: absolute;
+    bottom: 0px; 
+    left: 0;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background-image: linear-gradient(to bottom, transparent, rgba(200, 200, 200, 0.9)); 
+    padding: 10px 0;
+}
+
+.top-container.show-down-arrow .down-arrow-button {
+    opacity: 1;
+}
+
+.down-arrow-icon {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bottom-container {
+    background-color: #333;
+    padding: 40px 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.bottom-container.visible {
+    opacity: 1;
+}
+
+h1 {
+    color: #1DB954;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.instructions {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 500px;
+    border: none;
+    background-color: #222;
+    color: #fff;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #1DB954;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #14a943;
+}
+
+.how-to-use {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #444;
+    text-align: center;
+}
+
+.how-to-use h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}

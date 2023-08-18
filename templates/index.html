@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Spotify Playlist Downloader</title>
+</head>
+<body>
+    <div class="top-container">
+        <h1>Spotify Playlist Downloader</h1>
+        <p class="instructions">Enter the URL of the Spotify playlist and click "Download" to convert and download the songs as MP3.</p>
+        <form action="/" method="POST">
+            <input type="text" id="playlist-url" name="playlist-url" placeholder="ie. https://open.spotify.com/playlist/..." required>
+            <button type="submit">Download</button>
+        </form>
+
+        {% if message %}
+            <div class="message">
+                
+            </div>
+        {% endif %}
+
+        <div class="down-arrow-button">
+            <span class="down-arrow-icon">&#9660;</span>
+        </div>
+    </div>
+    
+    <div class="bottom-container">
+        <div class="how-to-use">
+            <h2>How to Use</h2>
+            <p>1. Copy the URL of the Spotify playlist you want to download.</p>
+            <p>2. Paste the URL in the input box above.</p>
+            <p>3. Click the "Download" button.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var topContainer = document.querySelector('.top-container');
+            var bottomContainer = document.querySelector('.bottom-container');
+            var downArrowButton = document.querySelector('.down-arrow-button');
+
+            downArrowButton.addEventListener('click', function() {
+                // Scroll to the bottom-container
+                window.scrollTo({
+                    top: bottomContainer.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+
+            topContainer.classList.add('show-down-arrow');
+
+            window.addEventListener('scroll', function() {
+                var scrollPosition = window.scrollY;
+                var bottomContainerPosition = bottomContainer.offsetTop;
+
+                var topContainerOpacity = 1 - (scrollPosition / (bottomContainerPosition - 100));
+                var bottomContainerOpacity = 1 - topContainerOpacity;
+
+                topContainer.style.opacity = topContainerOpacity;
+                bottomContainer.style.opacity = bottomContainerOpacity;
+                bottomContainer.style.transform = 'translateY(' + (50 * bottomContainerOpacity) + 'px)';
+
+                if (scrollPosition === 0) {
+                    topContainer.classList.add('show-down-arrow');
+                } else {
+                    topContainer.classList.remove('show-down-arrow');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
