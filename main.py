@@ -10,7 +10,9 @@ def runner(playlist_url: str):
         token = get_token(CLIENT_ID, CLIENT_SECRET)
         song_info = get_songs_from_playlist(token, playlist_id)
         ## print(song_info)
-
+        message = download_songs(song_info)
+        
+        
         if download_songs(song_info): 
             return "Download Complete"
         else:

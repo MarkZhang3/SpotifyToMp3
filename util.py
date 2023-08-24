@@ -3,6 +3,7 @@ import base64
 import json
 import youtube_dl
 import yt_dlp 
+from yt_dlp.postprocessor.common import PostProcessingError
 from bs4 import BeautifulSoup
 import re
 from youtube_search import YoutubeSearch
@@ -109,7 +110,7 @@ def get_urls_using_yt_search(query, num_results=1):
     return video_urls
     
 
-def download_songs(tracks: list) -> bool:
+def handle_songs(tracks: list) -> bool:
 
     ydl_opts = {
         'format': 'bestaudio/best',
@@ -121,14 +122,26 @@ def download_songs(tracks: list) -> bool:
         'outtmpl': '~/Downloads/%(title)s.%(ext)s',
     }
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        for track in tracks:
-            video_urls = get_urls_using_yt_search(track)
-            if video_urls == []:
-                video_urls = get_urls_using_requests(track)
-            if video_urls:
-                ydl.download([video_urls[0]])
-            else:
-                return False 
+    ydl_opts_2 = {
+        'format': 'bestaudio/best',
+        'outtmpl': f'~/Downloads/%(title)s (1).%(ext)s',
+    }
+
+    for track in tracks:
+        video_urls = get_urls_using_yt_search(track)
+        if video_urls == []:
+            video_urls = get_urls_using_requests(track)
+        if video_urls:
+            msg = download_song(track, video_urls, ydl_opts)
+            return msg
+        else:
+            return False 
     return True
 
+def download_song(song_name: str, video_urls: list, ydl_opts: dict) -> str:
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        try: 
+            ydl.download([video_urls[0]])
+            return f"Downloaded: {song_name}"
+        except PostProcessingError as e:
+            return "Error: File has already been downloaded or processed:" + str(e)

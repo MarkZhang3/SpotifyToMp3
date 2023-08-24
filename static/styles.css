@@ -28,6 +28,9 @@ body {
     padding: 10px 0;
 }
 
+.down-arrow-button .hover {
+    cursor: pointer;
+}
 .top-container.show-down-arrow .down-arrow-button {
     opacity: 1;
 }
@@ -100,4 +103,19 @@ button:hover {
 .how-to-use h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
+}
+
+.message {
+    background-color: transparent; /* Transparent background */
+    text-align: center;
+    margin-top: 20px;
+}
+
+.message p {
+    color: rgba(0, 128, 0, 0.9); /* Green text color */
+    font-weight: bold;
+    padding: 10px;
+    border: 2px solid rgba(0, 128, 0, 0.9); /* Green border */
+    border-radius: 5px;
+    display: inline-block;
 }
