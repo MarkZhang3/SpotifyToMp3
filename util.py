@@ -7,6 +7,7 @@ from yt_dlp.postprocessor.common import PostProcessingError
 from bs4 import BeautifulSoup
 import re
 from youtube_search import YoutubeSearch
+from typing import Iterator, Generator
 
 
 def get_token(CLIENT_ID: str, CLIENT_SECRET: str) -> str:
@@ -38,9 +39,9 @@ def get_songs_from_playlist(token: str, playlist_id: str) -> list:
     headers = get_auth_header(token)
     endpoint = url + playlist_id
     result = requests.get(endpoint, headers=headers)
-    print(result)
+    # print(result)
     json_result = json.loads(result.content)
-    print(json_result)
+    # print(json_result)
     songs = []
     for i in json_result['tracks']['items']:
         song_artists = ''
@@ -110,7 +111,7 @@ def get_urls_using_yt_search(query, num_results=1):
     return video_urls
     
 
-def handle_songs(tracks: list) -> bool:
+def download_playlist(tracks: list) -> str:
 
     ydl_opts = {
         'format': 'bestaudio/best',
@@ -127,16 +128,20 @@ def handle_songs(tracks: list) -> bool:
         'outtmpl': f'~/Downloads/%(title)s (1).%(ext)s',
     }
 
+    message = ""
+
     for track in tracks:
         video_urls = get_urls_using_yt_search(track)
         if video_urls == []:
             video_urls = get_urls_using_requests(track)
         if video_urls:
             msg = download_song(track, video_urls, ydl_opts)
-            return msg
+            message += msg + '\n' # yield f"data: {json.dumps({'text': msg})}\n\n"
         else:
-            return False 
-    return True
+            message += f"Error: Unable to download {track}" + '\n' # yield f"data: {json.dumps({'text': f'Error: Unable to download {track}'})}\n\n" 
+    
+    return message
+
 
 def download_song(song_name: str, video_urls: list, ydl_opts: dict) -> str:
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:

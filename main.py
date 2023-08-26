@@ -1,6 +1,6 @@
-from util import get_token, get_songs_from_playlist, extract_playlist_id, download_songs
+from util import get_token, get_songs_from_playlist, extract_playlist_id
 
-def runner(playlist_url: str):
+def get_song_urls(playlist_url: str):
     try:
         file = open('text.txt', 'r')
         CLIENT_ID, CLIENT_SECRET = str(file.readline().strip()), str(file.readline().strip())
@@ -10,13 +10,7 @@ def runner(playlist_url: str):
         token = get_token(CLIENT_ID, CLIENT_SECRET)
         song_info = get_songs_from_playlist(token, playlist_id)
         ## print(song_info)
-        message = download_songs(song_info)
-        
-        
-        if download_songs(song_info): 
-            return "Download Complete"
-        else:
-            return "Unable to complete download"
+        return song_info
     except: 
         return "Error"
 
