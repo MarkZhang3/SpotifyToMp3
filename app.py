@@ -23,16 +23,5 @@ def download():
         # return Response(download_playlist(song_urls), content_type='text/event-stream')
     return redirect(url_for('index'))
 
-@app.route('/events', methods=['POST']) 
-def events():
-    if request.method == 'POST':
-        playlist_url = request.form['playlist-url']
-        
-        song_urls = get_song_urls(playlist_url=playlist_url)
-
-        return Response(download_playlist(song_urls), content_type='text/event-stream')
-    return Response(download_playlist([]), content_type='text/event-stream')
-
-
 if __name__ == '__main__':
     app.run(debug=True) 

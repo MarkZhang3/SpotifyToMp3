@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Spotify Playlist Downloader</title>
+    <title>SpotifyToMP3 - Spotify Playlist Downloader</title>
 </head>
 <body>
     <div class="top-container">
@@ -35,8 +35,15 @@
         <div class="how-to-use">
             <h2>How to Use</h2>
             <p>1. Copy the URL of the Spotify playlist you want to download.</p>
+            <p> You can do this by: </p>
+            <ul>
+                <li>Open your Spotify app and to the playlist you'd like to download</li>
+                <li>Click on the "3 dots" button</li>
+                <li>Click "Share" and then "Copy Link"</li>
+            </ul>
             <p>2. Paste the URL in the input box above.</p>
             <p>3. Click the "Download" button.</p>
+            <p>4. Check your downloads folder for the songs</p>
         </div>
     </div>
 
@@ -74,18 +81,6 @@
                 }
             });
         });
-
-        // messages 
-        const eventSource = new EventSource('/events');
-
-        eventSource.onmessage = function(event) {
-            const message = event.data;
-            console.log(message);
-            const messageContainer = document.getElementById('message-container');
-            const messageElement = document.createElement('p');
-            messageElement.textContent = message;
-            messageContainer.appendChild(messageElement);
-        };
     
     </script>
 </body>

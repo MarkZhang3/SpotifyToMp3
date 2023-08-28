@@ -3,7 +3,7 @@ import base64
 import json
 import youtube_dl
 import yt_dlp 
-from yt_dlp.postprocessor.common import PostProcessingError
+from yt_dlp import DownloadError
 from bs4 import BeautifulSoup
 import re
 from youtube_search import YoutubeSearch
@@ -128,7 +128,7 @@ def download_playlist(tracks: list) -> str:
         'outtmpl': f'~/Downloads/%(title)s (1).%(ext)s',
     }
 
-    message = ""
+    messages = ''
 
     for track in tracks:
         video_urls = get_urls_using_yt_search(track)
@@ -136,11 +136,11 @@ def download_playlist(tracks: list) -> str:
             video_urls = get_urls_using_requests(track)
         if video_urls:
             msg = download_song(track, video_urls, ydl_opts)
-            message += msg + '\n' # yield f"data: {json.dumps({'text': msg})}\n\n"
+            messages += msg + '\n' # yield f"data: {json.dumps({'text': msg})}\n\n"
         else:
-            message += f"Error: Unable to download {track}" + '\n' # yield f"data: {json.dumps({'text': f'Error: Unable to download {track}'})}\n\n" 
+            messages += f"Error: Unable to download {track}" + '\n' # yield f"data: {json.dumps({'text': f'Error: Unable to download {track}'})}\n\n" 
     
-    return message
+    return messages
 
 
 def download_song(song_name: str, video_urls: list, ydl_opts: dict) -> str:
@@ -148,5 +148,15 @@ def download_song(song_name: str, video_urls: list, ydl_opts: dict) -> str:
         try: 
             ydl.download([video_urls[0]])
             return f"Downloaded: {song_name}"
-        except PostProcessingError as e:
-            return "Error: File has already been downloaded or processed:" + str(e)
+        except DownloadError as e:
+            if "has already been downloaded" in str(e):
+                new_opts = ydl_opts.copy()
+                new_opts['outtmpl'] = f"~/Downloads/%(title)s (1).%(ext)s"
+                try:
+                    with yt_dlp.YoutubeDL(new_opts) as ydl:
+                        ydl.download([video_urls[0]])
+                    return f"Downloaded (Renamed): {song_name} (1)"
+                except DownloadError as new_e:
+                    return f"Error: {new_e}"
+            else:
+                return f"Error: {e}"
