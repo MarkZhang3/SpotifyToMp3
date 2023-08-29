@@ -2,7 +2,7 @@ from util import get_token, get_songs_from_playlist, extract_playlist_id
 
 def get_song_urls(playlist_url: str):
     try:
-        file = open('text.txt', 'r')
+        file = open('.gitignore', 'r')
         CLIENT_ID, CLIENT_SECRET = str(file.readline().strip()), str(file.readline().strip())
         # print(CLIENT_ID, CLIENT_SECRET)
 
