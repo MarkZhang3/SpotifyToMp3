@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>SpotifyToMP3 - Spotify Playlist Downloader</title>
+    <title>Spotify Playlist Downloader</title>
 </head>
 <body>
     <div class="top-container">
-        <h1>Spotify Playlist Downloader</h1>
+        <h1>SpotifyToMP3 - Spotify Playlist Downloader</h1>
         <p class="instructions">Enter the URL of the Spotify playlist and click "Download" to convert and download the songs as MP3.</p>
         <form action="/download" method="POST">
             <input type="text" id="playlist-url" name="playlist-url" placeholder="ie. https://open.spotify.com/playlist/..." required>
@@ -41,9 +41,15 @@
                 <li>Click on the "3 dots" button</li>
                 <li>Click "Share" and then "Copy Link"</li>
             </ul>
+            <div class="two-column">
+                <img class="left-col-img" src="{{ url_for('static', filename='./assets/Spotify3Dots.jpg') }}" alt="spotify-three-dots"/>
+                <img class="right-col-img" src="{{ url_for('static', filename='./assets/SpotifyCopyLink.jpg') }}" alt="spotify-copy-link"/>
+            </div>
             <p>2. Paste the URL in the input box above.</p>
             <p>3. Click the "Download" button.</p>
-            <p>4. Check your downloads folder for the songs</p>
+            <p>4. Wait for confirmation to appear. It should look like this: </p>
+            <img class="no-col-img" src="{{ url_for('static', filename='./assets/SpotifyToMP3Message.jpg') }}" alt="spotifytomp3-message" />
+            <p>5. Check your downloads folder for the songs</p>
         </div>
     </div>
 

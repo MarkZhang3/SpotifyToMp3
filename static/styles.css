@@ -64,9 +64,10 @@ h1 {
 }
 
 form {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 input[type="text"] {
@@ -94,7 +95,7 @@ button:hover {
 
 .how-to-use {
     max-width: 600px;
-    height: 75vh; 
+    min-height: 75vh; 
     margin: auto;
     padding: 60px;
     border-radius: 5px;
@@ -139,4 +140,35 @@ button:hover {
     border: 2px solid rgba(0, 128, 0, 0.9); /* Green border */
     border-radius: 5px;
     display: inline-block;
+}
+
+.two-column {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    left: -20px;
+    position: relative;
+}
+
+.left-col-img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.right-col-img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.no-col-img {
+    width: 500px;
+    height: 350px;
+    border-radius: 5px;
 }

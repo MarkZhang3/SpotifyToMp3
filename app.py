@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, url_for, render_template, Response, 
 from main import get_song_urls
 from util import download_playlist
 
-app = Flask(__name__) 
+app = Flask(__name__, static_folder='static') 
 app.secret_key = 'key'
 
 @app.route('/', methods=["GET", "POST"])
