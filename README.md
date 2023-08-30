@@ -3,7 +3,7 @@
 ![SpotifyToMP3Screenshot](static/assets/SpotifyToMP3Message.jpg)
 
 ## Description
-Spotify Playlist Downloader is a web application built with Flask that allows you to easily download songs from a Spotify playlist and convert them to MP3 format. It uses the `yt-dlp` library for downloading audio files from YouTube.
+SpotifyToMP3 is a web application built with Flask that allows you to easily download songs from a Spotify playlist and convert them to MP3 format. It uses the `yt-dlp` library for downloading audio files from YouTube.
 
 ## Installation
 1. Clone the repository:
@@ -17,7 +17,7 @@ Spotify Playlist Downloader is a web application built with Flask that allows yo
 5. Install the required packages:
 ```pip install -r requirements.txt```
 6. Start the Flask application:
-``python app.py```
+```python app.py```
 
 ## Usage
 1. Open your web browser and go to `http://127.0.0.1:5000`
