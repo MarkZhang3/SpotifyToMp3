@@ -3,7 +3,8 @@
 ![SpotifyToMP3Screenshot](static/assets/SpotifyToMP3Message.jpg)
 
 ## Description
-SpotifyToMP3 is a web application built with Flask that allows you to easily download songs from a Spotify playlist and convert them to MP3 format. It uses the `yt-dlp` library for downloading audio files from YouTube.
+SpotifyToMP3 is a web application built with Flask that allows you to easily download songs from a Spotify playlist and convert them to audio files. It uses the `yt-dlp` library for downloading audio files from YouTube.
+Note that currently `yt-dlp` selects the best format so audio files may be WEBM file instead of MP3. 
 
 ## Installation
 1. Clone the repository:
